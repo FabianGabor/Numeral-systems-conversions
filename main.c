@@ -125,7 +125,9 @@ int main()
     printf("Decimal %d in base %d:\n",x,base);
     print_list(head);
 
-    dec = baseNtoDec("AA",16);
+    char num[] = "00FFFF";
+    base = 16;
+    dec = baseNtoDec(num,base);
     printf("%d\n", dec);
 
     return 0;
