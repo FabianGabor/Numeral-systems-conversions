@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <strings.h>
+#include <math.h>
 
 typedef struct node {
     char bit;
@@ -52,8 +54,6 @@ void *dectobaseN (int dec, int base, binary *bin)
 {
     int i = 0;
 
-    int debug = dec % base;
-
     if (dec % base > 9)
         bin->bit = ((dec % base)-10) + 'A';
     else
@@ -70,6 +70,29 @@ void *dectobaseN (int dec, int base, binary *bin)
     return bin;
 }
 
+int baseNtoDec (char num[], int base)
+{
+    int i = 0;
+    int dec = 0;
+    int digit;
+
+
+    int debug_pow = strlen(num) - i - 1;
+    int debug_strlen = strlen(num);
+
+    while (i < (int)strlen(num))
+    {
+        if (num[i] > '9')
+            digit = num[i] - 'A' + 10;
+        else
+            digit = num[i] - '0';
+        dec += digit * pow(base, strlen(num) - i - 1);
+        i++;
+    }
+
+    return dec;
+}
+
 int main()
 {
     binary *head = NULL;
@@ -78,6 +101,7 @@ int main()
 
     int x = 122919815;
     int base;
+    int dec;
 
     //head->bit = 1;
     //head->next = NULL;
@@ -100,6 +124,9 @@ int main()
     head = dectobaseN(x, base, head);
     printf("Decimal %d in base %d:\n",x,base);
     print_list(head);
+
+    dec = baseNtoDec("AA",16);
+    printf("%d\n", dec);
 
     return 0;
 }
